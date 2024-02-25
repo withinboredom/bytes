@@ -26,9 +26,29 @@ readonly class Bytes implements DataUnit
         return static::create($value);
     }
 
-    protected static function create(int $value): static
+    protected static function create(int|self $value): static
     {
         static $map = [];
+
+        if($value instanceof self) {
+            $key = number_format($value->bytes, 0, '', '');
+            $realValue = ($map[$value::class][$key] ?? null)?->get();
+            if($realValue !== null) {
+                trigger_error('A value was unserialized that will not have the appropriate identity. If you are seeing this message, please use a custom serialization/deserialization logic if you rely on identity of DataUnit.', E_USER_WARNING);
+                $value->deathCallback = static fn() => null;
+                return $value;
+            }
+            $map[$value::class][$key] = \WeakReference::create($value);
+            $value->deathCallback = static function ($value) use (&$map, $key) {
+                unset($map[$value::class][$key]);
+
+                if(empty($map[$value::class])) {
+                    unset($map[$value::class]);
+                }
+            };
+
+            return $value;
+        }
 
         $key = number_format($value, 0, '', '');
 
@@ -118,5 +138,21 @@ readonly class Bytes implements DataUnit
     #[\Override] public static function compare(DataUnit $left, DataUnit $right): int
     {
         return $left->compareto($right);
+    }
+
+    public function __clone(): void
+    {
+        throw new \LogicException('Cloning a pointless endeavor since these are value objects');
+    }
+
+    public function __serialize(): array
+    {
+        return ['bytes' => $this->bytes];
+    }
+
+    public function __unserialize(array $data): void
+    {
+        $this->bytes = $data['bytes'];
+        static::create($this);
     }
 }
