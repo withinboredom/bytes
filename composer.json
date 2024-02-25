@@ -7,7 +7,9 @@
         "psr-4": {
             "Withinboredom\\Bytes\\": "src/"
         },
-        "files": []
+        "files": [
+            "src/functions.php"
+        ]
     },
     "authors": [
         {

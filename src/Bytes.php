@@ -2,7 +2,7 @@
 
 namespace Withinboredom\Bytes;
 
-readonly class Bytes
+readonly class Bytes implements DataUnit
 {
     protected function __construct(public int $bytes) {}
 
