@@ -14,7 +14,8 @@ interface DataUnit
 
     public function getSiValue(): float|int;
 
-    public function compare(DataUnit $other): int;
+    public function compareto(DataUnit $other): int;
+    public static function compare(DataUnit $left, DataUnit $right): int;
 
     public function add(DataUnit $other): DataUnit;
 
