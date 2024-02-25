@@ -1,0 +1,30 @@
+{
+    "name": "withinboredom/bytes",
+    "description": "Convert between bytes",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Withinboredom\\Bytes\\": "src/"
+        },
+        "files": []
+    },
+    "authors": [
+        {
+            "name": "Robert Landers",
+            "email": "landers.robert@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.3"
+    },
+    "require-dev": {
+        "pestphp/pest": "^2.34",
+        "laravel/pint": "^1.14"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
+}
