@@ -2,13 +2,13 @@
 
 use function Withinboredom\Bytes\Kilobytes;
 
-it('can be serialized', function() {
+it('can be serialized', function () {
     $kb = Kilobytes(12);
     $string = serialize($kb);
     expect($string)->toBe('O:29:"Withinboredom\Bytes\Kilobytes":1:{s:5:"bytes";i:12288;}');
 });
 
-it('can be deserialized', function() {
+it('can be deserialized', function () {
     $string = 'O:29:"Withinboredom\Bytes\Kilobytes":1:{s:5:"bytes";i:16384;}';
     $kb = unserialize($string);
     expect($kb)->toBe(Kilobytes(16));
