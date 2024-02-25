@@ -2,6 +2,12 @@
 
 This library allows you to create define data units in a nearly native way, compare them, and convert between them.
 
+Use this:
+
+```
+composer require withinboredom/bytes
+```
+
 ## This library is unusual!
 
 The following code is 100% valid:
